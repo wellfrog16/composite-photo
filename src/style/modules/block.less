@@ -1,0 +1,35 @@
+// ------------------------------------横屏处理-----------------------------------------
+
+@media screen and (orientation: portrait) {
+    /*竖屏 css*/
+    .sys-block {
+        display: none;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    /*横屏 css*/
+    .sys-block {
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #333;
+        color: #fff;
+        text-align: center;
+        //line-height: 100vh;
+        font-size: 16px;
+        //display: none;
+
+        img {
+            margin: 12% 0 2% 0;
+            width: 40%;
+        }
+
+        span {
+            display: block;
+        }
+    }
+}

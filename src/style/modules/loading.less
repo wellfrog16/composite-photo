@@ -1,0 +1,49 @@
+// loading样式
+.sys-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    // line-height: 90vh;
+    z-index: 99;
+    background-color: #f5e7da;
+
+    .movie {
+        margin: 30vh auto 0 auto;
+        width: 80px;
+        height: 143px;
+        background-image: url('../assets/img/main/loading.jpg');
+    }
+
+    .progress {
+        height: 3px; /*no*/
+        width: 32vw;
+        border: 1px solid #d7b48c; /*no*/
+        background-color: #fff;
+        position: absolute;
+        bottom: 20px; /*no*/
+        left: 34vw;
+        text-align: center;
+    }
+
+    .text {
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        bottom: 30px; /*no*/
+        font-size: 12px;
+
+        span {
+            color: #d7b48c;
+            font-size: 10px; /*no*/
+        }
+    }
+
+    .line {
+        height: 3px; /*no*/
+        width: 0%;
+        background-color: #d7b48c;
+    }
+}
