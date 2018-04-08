@@ -6,9 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div>
+        <!-- <div>
             <input id="fileBtn" type="file" onchange="upload('#fileBtn', '#img');" accept="image/*" />
             <img src="" id="img"/>
-        </div>
+        </div> -->
+
+        <section id="create">
+            <canvas id="mainCanvas"></canvas>
+            <div class="wrapper">
+                <div class="button">
+                    <div class="btn-upload">上传</div>
+                    <div class="btn-generate">生成图片</div>
+                    <input id="photo" type="file" accept="image/*" />
+                </div>
+            </div>
+        </section>
+        <section id="result">
+            <img src="">
+            <div></div>
+        </section>
     </body>
 </html>

@@ -4,15 +4,9 @@ define([
     'jquery',
     'createjs',
     'utils/utils',
-    'text!../components/loading.html!strip',
-    'jquery.browser'],
+    'text!../components/loading.html!strip'],
 ($, createjs, utils, htmlLoading) => {
     return (callback) => {
-        // 如果小于ie9，则取消loading（createjs不支持）;
-        if ($.browser.msie && $.browser.version < 9) {
-            return callback();
-        }
-
         // img标签方式加载图片
         var loader = new createjs.LoadQueue(false);
 
@@ -23,8 +17,7 @@ define([
 
         let elLoading = null;
         var source = [
-            { 'src': 'main/landscape.png' },
-            { 'src': 'main/loading.jpg' }
+            { 'src': 'main/landscape.png' }
         ];
 
         loader.on('complete', onComplete);
@@ -46,7 +39,7 @@ define([
             loader.maintainScriptOrder = true;
 
             var source = [
-                { 'src': 'main/loading.jpg' }
+                { 'src': 'main/bg.png' }
             ];
 
             loader.on('progress', onProgress);
@@ -54,16 +47,13 @@ define([
             loader.loadManifest(source, true, 'assets/img/');
 
             function onComplete() {
-                // t.stop();
                 elLoading.fadeOut();
                 utils.tryFun(callback);
-
-                console.log('资源加载完成');
             }
 
             function onProgress() {
                 // console.log(loader.progress);
-                elLoading.find('span').text((loader.progress * 100 | 0) + ' %');
+                elLoading.find('.text').text((loader.progress * 100 | 0) + ' %');
                 elLoading.find('.progress div').css('width', (loader.progress * 100 | 0) + '%');
             }
         }

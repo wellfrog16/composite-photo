@@ -127,14 +127,14 @@ gulp.task('move-style', ['stylelint'], () => {
         // }))
         .pipe(mainFilter)
         .pipe($.less())
-        .pipe($.postcss(
-            [
-                px2rem({
-                    baseDpr: 1,
-                    remUnit: 64
-                })
-            ]
-        ))
+        // .pipe($.postcss(
+        //     [
+        //         px2rem({
+        //             baseDpr: 1,Y
+        //             remUnit: 64
+        //         })
+        //     ]
+        // ))
         .pipe($.autoprefixer({
             browsers: ['last 3 versions', '>8%'],
             cascade: false,        // 美化属性，默认true

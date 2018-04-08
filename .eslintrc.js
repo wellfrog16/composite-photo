@@ -14,7 +14,8 @@ module.exports = {
   },
   globals: {
     vue: true,
-    wx: true
+    wx: true,
+    VConsole: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',

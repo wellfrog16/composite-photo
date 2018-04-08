@@ -76,7 +76,7 @@
         // 'jquery.cookie': 'lib/jquery/jquery.cookie',
         'jquery.browser': 'lib/jquery/jquery.browser',
         'jquery.hammer': 'lib/jquery/jquery.hammer',
-        'hammer': 'lib/jquery/hammer.min',
+        'hammerjs': 'lib/hammerjs/hammer.min',
         // 'jquery.fullPage': 'lib/jquery/jquery.fullPage',
         
         // 'jquery.scrollTo': 'lib/jquery/jquery.scrollTo',
