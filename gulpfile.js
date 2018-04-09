@@ -105,10 +105,10 @@ gulp.task('watch', () => {
 // 移动html
 gulp.task('move-html', () => 
     gulp.src(glob.html)
-        .pipe($.htmlmin({
-            removeComments: true,
-            collapseWhitespace: true
-        }))
+        // .pipe($.htmlmin({
+        //     removeComments: true,
+        //     collapseWhitespace: true
+        // }))
         // .pipe($.changed(distDev))
         .pipe(gulp.dest(distDev))
         .pipe(reload({stream: true}))
@@ -255,10 +255,10 @@ gulp.task('htmlreplace', () =>
             'css': ['style/main.min.css', 'style/import.min.css']
         }))
         .pipe($.revHash({assetsDir: distBuild}))
-        // .pipe($.htmlmin({
-        //     removeComments: true,
-        //     collapseWhitespace: false
-        // }))
+        .pipe($.htmlmin({
+            removeComments: true,
+            collapseWhitespace: false
+        }))
         .pipe(gulp.dest(`${distBuild}`))
 );
 

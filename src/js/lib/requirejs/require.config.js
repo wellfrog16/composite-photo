@@ -77,19 +77,11 @@
         'jquery.browser': 'lib/jquery/jquery.browser',
         'jquery.hammer': 'lib/jquery/jquery.hammer',
         'hammerjs': 'lib/hammerjs/hammer.min',
-        // 'jquery.fullPage': 'lib/jquery/jquery.fullPage',
         
         // 'jquery.scrollTo': 'lib/jquery/jquery.scrollTo',
 
-        // 'swiper': 'lib/swiper/swiper-3.4.2.jquery.min',
-
-        // 'bootstrap': 'lib/bootstrap/bootstrap-3.3.7.min',
-
-        // // 轮播
-        // 'slick': 'lib/slick/slick',
-
-        // // 滚动条
-        // 'iscroll': 'lib/iscroll/iscroll-5.2.0',
+        // exif
+        'exif-js': 'lib/exif/exif.min',
 
         // helper
         // 'utils': 'utils/helper',
