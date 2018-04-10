@@ -1,15 +1,15 @@
 // 剧本
 
 define([
-    'jquery',
+    'zepto',
     'utils/utils',
+    'helper/helper',
     'loader',
     'createjs',
     'hammerjs',
-    'exif-js',
     'text!../components/block.html!strip',
     'text!../components/index.html!strip'],
-($, utils, loader, createjs, Hammer, Exif, htmlBlock, htmlIndex) => {
+($, utils, helper, loader, createjs, Hammer, htmlBlock, htmlIndex) => {
     return () => {
         // 加载jquery插件
         // utils.jqueryPlugins();
@@ -18,7 +18,7 @@ define([
         // 如果是手机端，加载横屏提示
         // if (!utils.isPC) { $('body').append(htmlBlock); }
 
-        console.log(new VConsole());
+        // console.log(new VConsole());
 
         loader(() => {
             $('body').append(htmlIndex);
@@ -50,6 +50,8 @@ define([
 
             // 上传的对象
             let photo;
+            // 手势
+            let mc;
 
             const fileReader = new FileReader();
             const btnPhoto = $('#photo');
@@ -74,70 +76,40 @@ define([
                 design[key] *= scale;
             }
 
-            // 手势用，基数值
-            const states = {
-                x: 0,
-                y: 0,
-                scale: 1,
-                rotate: 0,
-                angle: 0
-            };
-
             fileReader.onload = e => {
                 // 删除旧的
                 stage.removeChild(photo);
 
+                // 清除事件
+                if (mc) { mc.destroy(); }
+
                 const imgData = e.target.result;
-                $('#test')[0].src = imgData;
                 photo = new createjs.Bitmap(imgData);
 
                 var newimg = new Image();
-                newimg.src = $('#test')[0].src;
+                newimg.src = imgData;
 
                 // 定时器，不停检测是否加载完成
                 let timer = setInterval(() => {
                     if (photo.image.width === 0 || photo.image.height === 0) { return; }
                     clearInterval(timer);
 
-                    setTimeout(() => {
-                        Exif.getData(newimg, function() {
-                            console.log(Exif.getTag(this, 'Orientation'));
-                            console.log(Exif.getAllTags(this));
-                            // var make = Exif.getTag(this, 'Make');
-                            // var model = Exif.getTag(this, 'Model');
-                            // console.log(`${make} ${model}`);
-                        });
-                    }, 1000);
+                    // 拍照90度修复
+                    if (utils.getPhotoOrientation(newimg) === 6) {
+                        photo.rotation = 90;
+                    }
 
-                    // imgthis.rotation = 90;
-
-                    const ratioDesign = design.width / design.height;
-                    const ratioPhoto = photo.image.width / photo.image.height;
-
-                    // 缩放值。true: 设计图宽高比大于上传图的宽高比，则上传图的高度较大。需要宽度相同，高垂直居中
-                    const photoScale = ratioDesign > ratioPhoto ? (design.width / photo.image.width) : (design.height / photo.image.height);
-
-                    photo.scaleX = photoScale;
-                    photo.scaleY = photoScale;
-
-                    // 包含中心点偏移regX, regY抵消
-                    photo.x = design.x + design.width / 2;
-                    photo.y = design.y + design.height / 2;
-
-                    // 中心点XY
-                    photo.regX = photo.image.width / 2;
-                    photo.regY = photo.image.height / 2;
-
-                    // 设定基数值
-                    states.scale = photoScale;
-                    states.x = photo.x;
-                    states.y = photo.y;
+                    // 调整photo数据以匹配design
+                    helper.matchingDesign(design, photo);
 
                     stage.addChild(photo);
 
                     // stage.setChildIndex(imgthis, 0);
                     // stage.setChildIndex(bg, 1);
                     stage.swapChildren(bg, photo);    // bg始终在顶层
+
+                    // 添加手势动作
+                    mc = helper.bindGesture($('#mainCanvas')[0], photo);
                 }, 10);
             };
 
@@ -154,54 +126,6 @@ define([
                     // document.getElementById('content2').style.display = 'block';
                     $('#result').show();
                 }, 200);
-            });
-
-            var mc = new Hammer.Manager($('#mainCanvas')[0], {
-                recognizers: [
-                    // RecognizerClass, [options], [recognizeWith, ...], [requireFailure, ...]
-                    [Hammer.Rotate],
-                    [Hammer.Pinch, { enable: true }, ['rotate']],
-                    [Hammer.Pan]
-                ]
-            });
-
-            mc.on('panmove', e => {
-                photo.x = states.x + e.deltaX;
-                photo.y = states.y + e.deltaY;
-            });
-
-            mc.on('panend', e => {
-                console.log('移动结束');
-                states.x = photo.x;
-                states.y = photo.y;
-            });
-
-            // let rotate = 0;
-            mc.on('pinchmove', e => {
-                if (states.scale + e.scale - 1 < 0) { return; }
-
-                // 缩放
-                photo.scaleX = states.scale + e.scale - 1;
-                photo.scaleY = states.scale + e.scale - 1;
-
-                // 旋转
-                if (states.rotate === 0) {
-                    states.rotate = e.rotation;
-                } else {
-                    photo.rotation = states.angle + (e.rotation - states.rotate);
-                    states.rotate = e.rotation;
-                    states.angle = photo.rotation;
-                }
-            });
-
-            mc.on('pinchend', () => {
-                states.rotate = 0;
-                states.scale = photo.scaleX;
-                console.log('pinchend');
-            });
-
-            mc.on('rotate', e => {
-                // console.log(e.rotation);
             });
         });
     };

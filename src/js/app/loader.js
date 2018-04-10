@@ -1,7 +1,7 @@
 // 加载
 
 define([
-    'jquery',
+    'zepto',
     'createjs',
     'utils/utils',
     'text!../components/loading.html!strip'],

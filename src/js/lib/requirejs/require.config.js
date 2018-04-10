@@ -68,24 +68,17 @@
         // 修改createjs来决定加载createjs的什么模块
         'createjs': 'lib/createjs/createjs',
 
+        'zepto': 'lib/zepto/zepto.min',
+
         // jquery
         // ------------------------------------
-        'jquery': 'lib/jquery/jquery-3.3.1.min',
+        // 'jquery': 'lib/jquery/jquery-3.3.1.min',
         // 'jquery': 'lib/jquery/jquery-3.3.1.slim.min',
         // 'jquery': 'lib/jquery/jquery-1.12.4.min',
-        // 'jquery.cookie': 'lib/jquery/jquery.cookie',
-        'jquery.browser': 'lib/jquery/jquery.browser',
-        'jquery.hammer': 'lib/jquery/jquery.hammer',
         'hammerjs': 'lib/hammerjs/hammer.min',
-        
-        // 'jquery.scrollTo': 'lib/jquery/jquery.scrollTo',
 
         // exif
         'exif-js': 'lib/exif/exif.min',
-
-        // helper
-        // 'utils': 'utils/helper',
-        // 'frameplayer': 'lib/helper-es5/frameplayer',
 
         // app
         // ------------------------------------
